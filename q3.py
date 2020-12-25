@@ -7,8 +7,8 @@ import numpy as np
 
 from erw import ERW
 
-MAX_STEP = 1e3
-N_SAMPLES = 256
+MAX_STEP = 5e4
+N_SAMPLES = 2048
 TMP_DIR = "tmp_q3"
 RES_DIR = "res_q3"
 
@@ -19,6 +19,7 @@ def sim(p, q):
     return elephant.where()
 
 def worker_func(pid, num, p_, q_):
+    print(p_, q_, num, pid)
     res = []
     for i in range(num):
         res.append(sim(p_/100, q_/100))
@@ -38,7 +39,7 @@ if __name__ == '__main__':
 
     print(f"Num process: {n_proc}")
 
-    for p_ in [25, 50, 60, 75, 80]:
+    for p_ in [25, 50, 60, 75, 80, 90]:
         for q_ in [25, 50, 75]:
             # divide
             batch = N_SAMPLES // n_proc
