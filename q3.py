@@ -14,7 +14,7 @@ RES_DIR = "res_q3"
 
 def sim(p, q):
     elephant = ERW(p, q)
-    for _ in range(MAX_STEP):
+    for _ in range(int(MAX_STEP)):
         elephant.walk()
     return elephant.where()
 
