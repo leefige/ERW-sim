@@ -9,7 +9,7 @@ from erw import ERW
 
 ITERS = 30
 BOUND = 1e4
-TMP_DIR = "tmp"
+TMP_DIR = "tmp_q1"
 
 class TooDeepError(RuntimeError):
     pass
