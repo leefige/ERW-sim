@@ -55,6 +55,8 @@ if __name__ == '__main__':
     else:
         n_proc = 8
 
+    print(f"Num process: {n_proc}")
+
     # divide
     tasks = []
     for i in range(n_proc):
@@ -64,9 +66,10 @@ if __name__ == '__main__':
 
     procs = []
     for ip in range(n_proc):
-        procs.append(Process(target=worker_func, args=(tasks[ip],)))
-    for p in procs:
+        p = Process(target=worker_func, args=(tasks[ip],))
+        procs.append(p)
         p.start()
+    for p in procs:
         p.join()
 
     # merge
