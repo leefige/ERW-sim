@@ -7,7 +7,7 @@ import numpy as np
 
 from erw import ERW
 
-MAX_STEP = 5e4
+MAX_STEP = 1e4
 N_SAMPLES = 2048
 TMP_DIR = "tmp_q3"
 RES_DIR = "res_q3"
@@ -39,7 +39,7 @@ if __name__ == '__main__':
 
     print(f"Num process: {n_proc}")
 
-    for p_ in [25, 50, 60, 75, 80, 90]:
+    for p_ in [20, 30, 40, 50, 60, 75, 80, 90]:
         for q_ in [25, 50, 75]:
             # divide
             batch = N_SAMPLES // n_proc
