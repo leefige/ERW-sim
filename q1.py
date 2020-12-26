@@ -7,8 +7,8 @@ import numpy as np
 
 from erw import ERW
 
-ITERS = 30
-BOUND = 1e4
+ITERS = 100
+BOUND = 2e4
 TMP_DIR = "tmp_q1"
 
 class TooDeepError(RuntimeError):
@@ -25,11 +25,11 @@ def sim(p, q, A):
         elephant.walk()
     return elephant.steps()
 
-def p_func(p_):
-    with open(f"{TMP_DIR}/{p_}.csv", 'w', encoding='utf-8') as fout:
-        p = p_ / 10
-        for q_ in range(1, 10):
-            for A in range(-10, 11, 2):
+def A_func(A):
+    with open(f"{TMP_DIR}/{A}.csv", 'w', encoding='utf-8') as fout:
+        for p_ in range(0, 11):
+            p = p_ / 10
+            for q_ in range(0, 11):
                 q = q_ / 10
                 print(f"{p:.2f}, {q:.2f}, {A:d}")
                 res = []
@@ -41,9 +41,9 @@ def p_func(p_):
                 fout.write(f"{p:.1f},{q:.1f},{A:d},{np.mean(res):.2f},{np.std(res):.2f},{len(res)/ITERS*100:.2f}\n")
                 fout.flush()
 
-def worker_func(ps):
-    for p_ in ps:
-        p_func(p_)
+def worker_func(As):
+    for A in As:
+        A_func(A)
 
 if __name__ == '__main__':
     if os.path.isdir(TMP_DIR):
@@ -61,8 +61,8 @@ if __name__ == '__main__':
     tasks = []
     for i in range(n_proc):
         tasks.append([])
-    for p_ in range(1, 10):
-        tasks[p_ % n_proc].append(p_)
+    for A in range(-10, 11):
+        tasks[A % n_proc].append(A)
 
     procs = []
     for ip in range(n_proc):
@@ -76,8 +76,8 @@ if __name__ == '__main__':
     with open("q1.csv", 'w') as fout:
         fout.write("p,q,A,mean,std,succ\n")
         fout.flush()
-        for p_ in range(1, 10):
-            with open(f"{TMP_DIR}/{p_}.csv", 'r', encoding='utf-8') as fin:
+        for A in range(-10, 11, 2):
+            with open(f"{TMP_DIR}/{A}.csv", 'r', encoding='utf-8') as fin:
                 lines = fin.readlines()
                 fout.writelines(lines)
                 fout.flush()
