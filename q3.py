@@ -11,6 +11,8 @@ MAX_STEP = 1e4
 N_SAMPLES = 2048
 TMP_DIR = "tmp_q3"
 RES_DIR = "res_q3"
+p_s = [20, 30, 40, 50, 60, 75, 80, 90]
+q_s = [25, 50, 75]
 
 def sim(p, q):
     elephant = ERW(p, q)
@@ -39,8 +41,8 @@ if __name__ == '__main__':
 
     print(f"Num process: {n_proc}")
 
-    for p_ in [20, 30, 40, 50, 60, 75, 80, 90]:
-        for q_ in [25, 50, 75]:
+    for p_ in p_s:
+        for q_ in q_s:
             # divide
             batch = N_SAMPLES // n_proc
             procs = []

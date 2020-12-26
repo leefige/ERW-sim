@@ -6,6 +6,8 @@ from matplotlib import pyplot as plt
 
 FIG_DIR = "./fig"
 os.makedirs(FIG_DIR, exist_ok=True)
+FIG_DIR = "./fig/q1"
+os.makedirs(FIG_DIR, exist_ok=True)
 
 # A=8,q=0.7,check p
 def plot_p(df, A, q):
@@ -32,5 +34,8 @@ if __name__ == '__main__':
     plot_p(df, 0, 0.7)
     plot_p(df, 0, 0.5)
     plot_p(df, 0, 0.2)
+    plot_q(df, 0, 0.2)
     plot_q(df, 0, 0.5)
+    plot_q(df, 0, 0.6)
     plot_q(df, 0, 0.7)
+    plot_q(df, 0, 0.8)
