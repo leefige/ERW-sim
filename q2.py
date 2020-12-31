@@ -17,7 +17,7 @@ TMP_DIR = f"tmp_q2_{_M_}"
 class TooDeepError(RuntimeError):
     pass
 
-def sim(p, q, A, M):
+def sim(p, q, A, M) -> list:
     elephant = ERW(p, q, M)
     # walk at least one step
     elephant.walk()
@@ -26,7 +26,12 @@ def sim(p, q, A, M):
         if elephant.steps() > BOUND:
             raise TooDeepError()
         elephant.walk()
-    return elephant.steps()
+
+    T = elephant.steps()
+    if T <= M:
+        return [T, np.nan]
+    else:
+        return [T, elephant.get_S(M)]
 
 def A_func(A, M):
     # with open(f"{TMP_DIR}/{A}.csv", 'w', encoding='utf-8') as fout:
