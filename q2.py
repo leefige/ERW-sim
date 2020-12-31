@@ -83,7 +83,7 @@ if __name__ == '__main__':
 
     # merge    
     all_output = {}
-    for A in range(-10, 11, 2):
+    for A in range(-10, 11):
         f = np.load(f"{TMP_DIR}/{A}.npz")
         for k in f.files:
             print(f"{k} loaded")
