@@ -1,9 +1,12 @@
 import numpy as np
 
 class ERW(object):
-    def __init__(self, p, q):
+    def __init__(self, p, q, M=None):
         self.p = p
         self.q = q
+        if M is not None:
+            assert M > 0
+        self.M = M
         self.pool = []
 
     def reset(self):
@@ -39,6 +42,9 @@ class ERW(object):
         if self.steps() == 0:
             X = 1 if np.random.rand() < self.q else -1
         else:
-            t = np.random.randint(0, self.steps())
+            if self.M is not None and self.steps() >= self.M:
+                t = np.random.randint(0, self.M)
+            else:
+                t = np.random.randint(0, self.steps())
             X = self.pool[t] if np.random.rand() < self.p else -self.pool[t]
         self.pool.append(X)
