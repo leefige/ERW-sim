@@ -14,7 +14,7 @@ os.makedirs(FIG_DIR, exist_ok=True)
 # A=8,q=0.7,check p
 def plot_p_q(p_, q_):
     points = np.load(f"res_q3/{p_}_{q_}.npy")
-    print(p_, q_, len(points), points[:10])
+    # print(p_, q_, len(points), points[:10])
     points = points / np.sqrt(MAX_STEP)
 
     plt.title("Asymptotic distribution of $\\frac{S_n}{\\sqrt{n}}$: $p=%.1f, q=%.1f$" % (p_/100, q_/100))
@@ -25,7 +25,7 @@ def plot_p_q(p_, q_):
 
     if p_ < 75:
         var = 1 / (3 - 4 * p_ / 100)
-        print(np.mean(points), np.sqrt(var), np.std(points))
+        print(f"{p_/100:.2f} & 0 / {np.mean(points):.2f} / {np.abs(np.mean(points)):.2f} & {var:.2f} / {np.var(points):.2f} / {np.abs(np.var(points) - var):.2f} \\\\")
         minv = np.min(points)
         maxv = np.max(points)
         xs = np.linspace(minv, maxv)
@@ -37,6 +37,7 @@ def plot_p_q(p_, q_):
     plt.cla()
 
 if __name__ == '__main__':
-    for p_ in p_s:
-        for q_ in q_s:
+    for q_ in q_s:
+        print(q_)
+        for p_ in p_s:
             plot_p_q(p_, q_)
